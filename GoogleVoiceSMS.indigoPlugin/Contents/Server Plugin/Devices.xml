@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Devices>
+	<Device type="custom" id="smsDevice">
+		<Name>SMS Device</Name>
+		<ConfigUI>			
+			<Field id="address" type="textfield">
+				<Label>Enter the phone number (10 digits only):</Label>
+			</Field>
+		</ConfigUI>
+		<States>
+			<State id="lastAction">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Last Action</TriggerLabel>
+				<ControlPageLabel>Last Action</ControlPageLabel>
+			</State>
+			<State id="receivedText">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Received Text</TriggerLabel>
+				<ControlPageLabel>Received Text</ControlPageLabel>
+			</State>
+		</States>
+		<UiDisplayStateId>lastAction</UiDisplayStateId>
+	</Device>
+</Devices>

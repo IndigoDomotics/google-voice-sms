@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Actions>
+	<Action id="sendSMS" deviceFilter="self.smsDevice">
+		<Name>Send an SMS message (via Google Voice)</Name> 
+		<CallbackMethod>sendSMSMessage</CallbackMethod> 
+		<ConfigUI>
+		    <Field id="smsMessage" type="textfield" >
+		    	<Label>Message to Send:</Label>
+		    </Field>
+		</ConfigUI>
+	</Action>
+</Actions>
