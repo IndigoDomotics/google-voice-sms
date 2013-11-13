@@ -6,7 +6,7 @@ This plugin was originally developed by Chris Baltas who has given us permission
 
 ##Downloading for use
 
-If you are a user and just want to download and install the plugin, click on the "Download Zip" button to the right and it will download the plugin and readme file to a folder in your Downloads directory called "old-vera-plugin". Once it's downloaded just open that folder and double-click on the "GoogleVoiceSMS.indigoPlugin" file to have the client install and enable it for you.
+If you are a user and just want to download and install the plugin, click on the "Download Zip" button to the right and it will download the plugin and readme file to a folder in your Downloads directory called "google-vlice-sms". Once it's downloaded just open that folder and double-click on the "GoogleVoiceSMS.indigoPlugin" file to have the client install and enable it for you.
 
 ##Contributing
 
