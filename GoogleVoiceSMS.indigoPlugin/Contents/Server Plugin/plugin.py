@@ -3,7 +3,7 @@
 ########################################
 # Google Voice SMS Plugin
 # Developed by Chris Baltas
-# Portions Copyright Joe McCal & Just Quick (googlevoice) 
+# Portions Copyright Joe McCal & Just Quick (googlevoice)
 ########################################
 
 ################################################################################
@@ -23,23 +23,23 @@ import BeautifulSoup
 
 ################################################################################
 class Plugin(indigo.PluginBase):
-	
+
 	########################################
-	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs): 
+	def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
 		indigo.PluginBase.__init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
-		self.debug = pluginPrefs.get("showDebugInfo", False) 
+		self.debug = pluginPrefs.get("showDebugInfo", False)
 		self.deviceList = []
 		self.shutdown = False
 		self.voice = Voice()
-	
+
 	########################################
 	def __del__(self):
 		indigo.PluginBase.__del__(self)
 
 	########################################
-	# Plugin Start and Stop methods	
+	# Plugin Start and Stop methods
 	########################################
-	
+
 	def startup(self):
 		self.debugLog("startup called")
 
@@ -47,14 +47,14 @@ class Plugin(indigo.PluginBase):
 		self.debugLog("shutdown called")
 
 	########################################
-	# Device Start and Stop methods	
+	# Device Start and Stop methods
 	########################################
 
 	def deviceStartComm(self, device):
 		self.debugLog("Starting device: " + device.name)
 		if device.id not in self.deviceList:
 			self.deviceList.append(device.id)
-			
+
 	########################################
 	def deviceStopComm(self, device):
 		self.debugLog("Stopping device: " + device.name)
@@ -69,19 +69,19 @@ class Plugin(indigo.PluginBase):
 	def sendSMSMessage (self, action):
 		smsDevice = indigo.devices[action.deviceId]
 		smsNumber = smsDevice.pluginProps['address']
-		smsMessage = self.substituteVariable(action.props["smsMessage"])
+		smsMessage = self.substitute(action.props["smsMessage"])
 
 		try:
 			indigo.server.log("Sending '"+smsMessage+"' to "+smsNumber)
-			smsDevice.updateStateOnServer(key="lastAction", value="Sending")   
+			smsDevice.updateStateOnServer(key="lastAction", value="Sending")
 			self.voice.send_sms(smsNumber, smsMessage)
 			smsDevice.updateStateOnServer(key="lastAction", value="Success")
-			indigo.server.log("Message sent successfully.")   
+			indigo.server.log("Message sent successfully.")
 
 		except:
 			smsDevice.updateStateOnServer(key="lastAction", value="Error")
 			indigo.server.log("Unable to send message.")
-	
+
 
     ########################################
     # Routine for parsing sms messages
@@ -104,8 +104,8 @@ class Plugin(indigo.PluginBase):
 					msgitem[cl] = (" ".join(span.findAll(text=True))).strip()	# put text in dict
 				msgitems.append(msgitem)					# add msg dictionary to list
 		return msgitems
-		
-    ########################################	    
+
+    ########################################
 	def verifyDevice(self, device, cell, msg, time):
 		smsNumber = device.pluginProps['address']
 		if smsNumber == cell[2:12]:
@@ -115,29 +115,29 @@ class Plugin(indigo.PluginBase):
 			verified = True
 		else:
 			verified = False
-			
+
 		return verified
-						
+
     ########################################
     # Routines for Concurrent Thread
     ########################################
-    
+
 	def runConcurrentThread(self):
-	
+
 		self.debugLog("Starting concurrent tread")
 		configRead = False
-		try:			
+		try:
 			email = self.pluginPrefs['gveMailAddress']
 			passwrd = self.pluginPrefs['gvPassword']
 			configRead = True
 		except:
 			indigo.server.log("Error reading plugin configuration. (Please configure Plugin preferences)")
 
-		if configRead: 
+		if configRead:
 			try:
 				indigo.server.log("Logging in to your Google Voice account.")
 				self.voice.login(email, passwrd)
-				indigo.server.log("Successfully logged in to: "+email)						
+				indigo.server.log("Successfully logged in to: "+email)
 				while self.shutdown == False:
 					self.voice.sms()
 					messageReceived = False
@@ -152,7 +152,7 @@ class Plugin(indigo.PluginBase):
 							 unauthorized = False
 						if (unauthorized==True and messageReceived==True):
 							indigo.server.log("Time: "+msg['time']+"  From: "+msg['from']+"  MSG: "+msg['text']+"  *unauthorized*")
-					if messageReceived:		
+					if messageReceived:
 						for message in self.voice.sms().messages:
 							message.delete()
 					time.sleep (4)
@@ -161,11 +161,11 @@ class Plugin(indigo.PluginBase):
 				indigo.server.log("Unable to login.  Please verify your e-mail/password in the plugin preferences")
 
 
-    ########################################	
+    ########################################
 	def stopConcurrentThread(self):
-		self.debugLog("Stopping concurrent tread")	
+		self.debugLog("Stopping concurrent tread")
 		self.shutdown = True
-		
+
 	########################################
 	# Preference close dialog methods
 	########################################
@@ -177,26 +177,26 @@ class Plugin(indigo.PluginBase):
 				indigo.server.log("Debug logging enabled")
 			else:
 				indigo.server.log("Debug logging disabled")
-				
+
 	########################################
-	# Preference Validation methods 
+	# Preference Validation methods
     ########################################
 	# Validate the plugin config window after user hits OK
 	# Returns False on failure, True on success
 
-	def validatePrefsConfigUi(self, valuesDict):	
+	def validatePrefsConfigUi(self, valuesDict):
 		self.debugLog(u"validating Prefs called")
 		errorsDict = indigo.Dict()
-		errorsFound = False    
+		errorsFound = False
 
 		if len(valuesDict[u'gveMailAddress']) == 0:
 			errorsDict[u'gveMailAddress'] = 'A valid Google Voice e-mail is required.'
 			errorsFound = True
-			
+
 		if len(valuesDict[u'gvPassword']) == 0:
 			errorsDict[u'gvPassword'] = 'Your Google Voice password is required.'
-			errorsFound = True	
-		
+			errorsFound = True
+
 		if errorsFound:
 			return (False, valuesDict, errorsDict)
 		else:
@@ -204,40 +204,40 @@ class Plugin(indigo.PluginBase):
 
 
 	########################################
-	# Device Validation methods 
+	# Device Validation methods
     ########################################
 	# Validate the device config window after the user hits OK
 	# Returns False on failure, True on success
-	
+
 	def validateDeviceConfigUi(self, valuesDict, typeId, devId):
 		self.debugLog(u"Device Validation called")
 		errorsDict = indigo.Dict()
-		errorsFound = False			
+		errorsFound = False
 
 		if len(valuesDict[u'address']) != 10:
 			errorsDict[u'address'] = 'Phone number must be 10 digits with no special characters and no leading 1'
-			errorsFound = True		
+			errorsFound = True
 
 		if errorsFound:
 			return (False, valuesDict, errorsDict)
 		else:
 			return (True, valuesDict)
-			
+
 	########################################
-	# Action Validation methods 
+	# Action Validation methods
     ########################################
 	# Validate the actions config window after the user hits OK
 	# Returns False on failure, True on success
-	
+
 	def validateActionConfigUi(self, valuesDict, typeId, actionId):
 		self.debugLog(u"Action Validation called")
 		errorsDict = indigo.Dict()
 		errorsFound = False
-		
+
 		if len(valuesDict[u'smsMessage']) == 0:
 			errorsDict[u'smsMessage'] = 'Message is a required field.'
 			errorsFound = True
-					
+
 		if errorsFound:
 			return (False, valuesDict, errorsDict)
 		else:
