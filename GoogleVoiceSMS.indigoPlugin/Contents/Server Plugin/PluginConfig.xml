@@ -33,7 +33,7 @@
 		<Label>Google Voice Password:</Label>
 	</Field>
 
-  <Field id="gvSleepSecs" type="textfield">
+  <Field id="gvSleepSecs" type="textfield" defaultValue="4">
     <Label>Frequency (sec) to check for messages:</Label>
   </Field>
 
