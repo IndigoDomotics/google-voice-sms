@@ -4,35 +4,47 @@
 	<Field id="infoLabel" type="label">
 		<Label>Google Voice SMS Plugin - originally developed by Chris Baltas</Label>
 	</Field>
-		
+
     <Field id="simpleSeparator1" type="separator"/>
-    
+
 	<Field id="instructions1" type="label">
 		<Label>A valid Google Voice account is required to use this plugin.</Label>
 	</Field>
-	
+
 	<Field id="instructions2" type="label">
 		<Label>Create at least one SMS device and unlimited action groups for each device.</Label>
-	</Field>		
+	</Field>
 
 	<Field id="spac1" type="label">
 		<Label></Label>
 	</Field>
-		
-	<Field id="simpleSeparator2" type="separator"/>	
+
+	<Field id="simpleSeparator2" type="separator"/>
 
 	<Field id="space2" type="label">
 		<Label></Label>
 	</Field>
-	
+
 	<Field id="gveMailAddress" type="textfield">
 		<Label>Google Voice e-Mail Address:</Label>
-	</Field>	
+	</Field>
 
 	<Field id="gvPassword" type="textfield">
 		<Label>Google Voice Password:</Label>
 	</Field>
-	
+
+  <Field id="gvCommandParsing" type="checkbox" defaultValue="false">
+    <Label>Allow messages to update variables</Label>
+  </Field>
+
+  <Field id="gvReplySuccess" type="checkbox" defaultValue="false" visibleBindingId="gvCommandParsing" visibleBindingValue="true">
+    <Label>Reply on set success</Label>
+  </Field>
+
+  <Field id="gvReplyError" type="checkbox" defaultValue="false" visibleBindingId="gvCommandParsing" visibleBindingValue="true">
+    <Label>Reply if set error occurs</Label>
+  </Field>
+
 	<Field id="space3" type="label">
 		<Label></Label>
 	</Field>
@@ -42,5 +54,5 @@
 		<Label>Enable debuging:</Label>
 		<Description>(not recommended)</Description>
 	</Field>
-	    
+
 </PluginConfig>
