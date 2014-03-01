@@ -1,8 +1,15 @@
 #Google Voice SMS Plugin
 
-This plugin allows you to send SMS messages via any number of Google Voice accounts. It will also insert the last SMS message received by an account into a state in the account device that can be used as a trigger.
+This plugin allows you to send SMS messages via any number to a Google Voice account. It will also insert the last SMS message received by an account into a state in the account device that can be used as a trigger.
 
-This plugin was originally developed by Chris Baltas who has given us permission to open-source the plugin for the community.
+## Variable Updating
+The Google Voice plugin can update variables (if enabled in the configuration) by using the message format "set <variablename> to <value>".  Note that variables are case sensitive.  For example, to update your thermostat via this plugin:
+  create a variable heatSetpoint
+  create a variable coolSetpoint
+  create a variable hvacMode
+  create a trigger for each of these variables on change that updates the thermostat with the variable values
+
+  You can now send the SMS message to your GV account: "set hvacMode to cool" and "set coolSetpoint to 67" which (assuming your triggers are correct) turn on your A/C to 67 degrees.
 
 ##Downloading for use
 
@@ -10,9 +17,11 @@ If you are a user and just want to download and install the plugin, click on the
 
 ##Contributing
 
-If you want to contribute, just clone the repository, make your changes, and issue a pull request. Make sure that you describe the change you're making thoroughly - this will help the repository managers accept your request more quickly.
+If you want to contribute, just fork the repository, make your changes, and issue a pull request. Make sure that you describe the change you're making thoroughly - this will help the repository managers accept your request more quickly.
 
 ##Terms
+
+This plugin was originally developed by Chris Baltas who has given us permission to open-source the plugin for the community.
 
 Perceptive Automation is hosting this repository and will do minimal management. Unless a pull request has no description or upon cursory observation has some obvious issue, pull requests will be accepted without any testing by us. We may choose to delegate commit privledges to other users at some point in the future.
 
