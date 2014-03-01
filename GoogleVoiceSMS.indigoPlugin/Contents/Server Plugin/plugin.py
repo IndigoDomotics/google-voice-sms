@@ -160,6 +160,7 @@ class Plugin(indigo.PluginBase):
         try:
             email = self.pluginPrefs['gveMailAddress']
             passwrd = self.pluginPrefs['gvPassword']
+            sleepSecs = int(self.pluginPrefs.get('gvSleepSecs', 4))
             configRead = True
         except:
             indigo.server.log("Error reading plugin configuration. (Please configure Plugin preferences)")
@@ -186,7 +187,7 @@ class Plugin(indigo.PluginBase):
                     if messageReceived:
                         for message in self.voice.sms().messages:
                             message.delete()
-                    time.sleep (4)
+                    time.sleep (sleepSecs)
                 self.voice.logout()
             except:
                 indigo.server.log("Unable to login.  Please verify your e-mail/password in the plugin preferences")
@@ -273,4 +274,3 @@ class Plugin(indigo.PluginBase):
             return (False, valuesDict, errorsDict)
         else:
             return (True, valuesDict)
-

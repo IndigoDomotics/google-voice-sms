@@ -33,6 +33,10 @@
 		<Label>Google Voice Password:</Label>
 	</Field>
 
+  <Field id="gvSleepSecs" type="textfield" defaultValue="4">
+    <Label>Frequency (sec) to check for messages:</Label>
+  </Field>
+
   <Field id="gvCommandParsing" type="checkbox" defaultValue="false">
     <Label>Allow messages to update variables</Label>
   </Field>
