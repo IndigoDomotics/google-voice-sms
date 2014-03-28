@@ -19,6 +19,12 @@ If you are a user and just want to download and install the plugin, click on the
 
 If you want to contribute, just fork the repository, make your changes, and issue a pull request. Make sure that you describe the change you're making thoroughly - this will help the repository managers accept your request more quickly.
 
+##Plugin ID
+
+Here's the plugin ID in case you need to programmatically restart the plugin:
+
+**Plugin ID**: com.chrisandlynette.indigoplugin.googleVoiceSMS
+
 ##Terms
 
 This plugin was originally developed by Chris Baltas who has given us permission to open-source the plugin for the community.
